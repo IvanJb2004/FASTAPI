@@ -82,3 +82,10 @@ jobs:
               docker compose logs --tail=20
             fi
           EOF
+
+          - name: Configurar SSH
+  run: |
+    mkdir -p ~/.ssh
+    echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa
+    ssh-keyscan -H 104.236.216.13 >> ~/.ssh/known_hosts
